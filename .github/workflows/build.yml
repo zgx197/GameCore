@@ -33,7 +33,7 @@ jobs:
       run: dotnet pack GameCore.Core -c Release -o artifacts
       
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: nuget-packages
         path: artifacts/*.nupkg
