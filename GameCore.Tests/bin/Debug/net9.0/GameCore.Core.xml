@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GameCore.Core</name>
+    </assembly>
+    <members>
+        <member name="T:GameCore.GameCore">
+            <summary>
+            GameCore框架主入口点和配置类
+            </summary>
+        </member>
+        <member name="F:GameCore.GameCore.Version">
+            <summary>
+            框架版本
+            </summary>
+        </member>
+        <member name="M:GameCore.GameCore.Initialize">
+            <summary>
+            初始化GameCore框架
+            </summary>
+        </member>
+        <member name="T:GameCore.HexGrid.HexCoord">
+            <summary>
+            六边形坐标
+            </summary>
+        </member>
+        <member name="F:GameCore.HexGrid.HexCoord.Q">
+            <summary>
+            Q轴坐标(从西南到东北)
+            </summary>
+        </member>
+        <member name="F:GameCore.HexGrid.HexCoord.R">
+            <summary>
+            R轴坐标(从西北到东南)
+            </summary>
+        </member>
+        <member name="P:GameCore.HexGrid.HexCoord.S">
+            <summary>
+            S轴坐标, -Q - R
+            </summary>
+        </member>
+        <member name="M:GameCore.HexGrid.HexCoord.#ctor(System.Int32,System.Int32)">
+            <summary>
+            创建新的六边形坐标
+            </summary>
+            <param name="q">Q轴坐标</param>
+            <param name="r">R轴坐标</param>
+        </member>
+        <member name="M:GameCore.HexGrid.HexCoord.Distance(GameCore.HexGrid.HexCoord,GameCore.HexGrid.HexCoord)">
+            <summary>
+            计算两个六边形坐标之间的距离
+            </summary>
+            <param name="a">六边形坐标A</param>
+            <param name="b">六边形坐标B</param>
+            <returns>距离</returns>
+        </member>
+        <member name="M:GameCore.HexGrid.HexCoord.Equals(GameCore.HexGrid.HexCoord)">
+            <summary>
+            实现相等比较方法
+            </summary>
+            <param name="other">其他六边形坐标</param>
+            <returns>是否相等</returns>
+        </member>
+        <member name="M:GameCore.HexGrid.HexCoord.Equals(System.Object)">
+            <summary>
+            重写Equals方法
+            </summary>
+            <param name="obj">其他对象</param>
+            <returns>是否相等</returns>
+        </member>
+        <member name="M:GameCore.HexGrid.HexCoord.GetHashCode">
+            <summary>
+            重写GetHashCode方法
+            </summary>
+            <returns>哈希值</returns>
+        </member>
+        <member name="M:GameCore.HexGrid.HexCoord.op_Equality(GameCore.HexGrid.HexCoord,GameCore.HexGrid.HexCoord)">
+            <summary>
+            重载操作符
+            </summary>
+            <param name="a">六边形坐标A</param>
+            <param name="b">六边形坐标B</param>
+            <returns>是否相等</returns>
+        </member>
+        <member name="M:GameCore.HexGrid.HexCoord.op_Inequality(GameCore.HexGrid.HexCoord,GameCore.HexGrid.HexCoord)">
+            <summary>
+            重载操作符
+            </summary>
+            <param name="a">六边形坐标A</param>
+            <param name="b">六边形坐标B</param>
+            <returns>是否不相等</returns>
+        </member>
+        <member name="M:GameCore.HexGrid.HexCoord.op_Addition(GameCore.HexGrid.HexCoord,GameCore.HexGrid.HexCoord)">
+            <summary>
+            重载操作符
+            </summary>
+            <param name="a">六边形坐标A</param>
+            <param name="b">六边形坐标B</param>
+        </member>
+        <member name="M:GameCore.HexGrid.HexCoord.ToString">
+            <summary>
+            重写ToString方法
+            </summary>
+            <returns>字符串表示</returns>
+        </member>
+    </members>
+</doc>

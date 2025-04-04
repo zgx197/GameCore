@@ -1,0 +1,17 @@
+D:\work\GameCore\GameCore.Unity\bin\Debug\netstandard2.1\GameCore.Unity.deps.json
+D:\work\GameCore\GameCore.Unity\bin\Debug\netstandard2.1\GameCore.Unity.dll
+D:\work\GameCore\GameCore.Unity\bin\Debug\netstandard2.1\GameCore.Unity.pdb
+D:\work\GameCore\GameCore.Unity\bin\Debug\netstandard2.1\GameCore.Unity.xml
+D:\work\GameCore\GameCore.Unity\bin\Debug\netstandard2.1\GameCore.Core.dll
+D:\work\GameCore\GameCore.Unity\bin\Debug\netstandard2.1\GameCore.Core.pdb
+D:\work\GameCore\GameCore.Unity\bin\Debug\netstandard2.1\GameCore.Core.xml
+D:\work\GameCore\GameCore.Unity\obj\Debug\netstandard2.1\GameCore.Unity.csproj.AssemblyReference.cache
+D:\work\GameCore\GameCore.Unity\obj\Debug\netstandard2.1\GameCore.Unity.GeneratedMSBuildEditorConfig.editorconfig
+D:\work\GameCore\GameCore.Unity\obj\Debug\netstandard2.1\GameCore.Unity.AssemblyInfoInputs.cache
+D:\work\GameCore\GameCore.Unity\obj\Debug\netstandard2.1\GameCore.Unity.AssemblyInfo.cs
+D:\work\GameCore\GameCore.Unity\obj\Debug\netstandard2.1\GameCore.Unity.csproj.CoreCompileInputs.cache
+D:\work\GameCore\GameCore.Unity\obj\Debug\netstandard2.1\GameCore.Unity.sourcelink.json
+D:\work\GameCore\GameCore.Unity\obj\Debug\netstandard2.1\GameCore.26D76B3C.Up2Date
+D:\work\GameCore\GameCore.Unity\obj\Debug\netstandard2.1\GameCore.Unity.dll
+D:\work\GameCore\GameCore.Unity\obj\Debug\netstandard2.1\GameCore.Unity.xml
+D:\work\GameCore\GameCore.Unity\obj\Debug\netstandard2.1\GameCore.Unity.pdb

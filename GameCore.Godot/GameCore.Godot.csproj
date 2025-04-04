@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameCore.Core\GameCore.Core.csproj" />
+  </ItemGroup>
+
+  <!-- Godot 4 引用 - 如有Godot安装，请调整路径 -->
+  <ItemGroup>
+    <PackageReference Include="GodotSharp" Version="4.2.0" PrivateAssets="All" />
+  </ItemGroup>
+</Project>
