@@ -8,7 +8,7 @@ namespace GameCore
         /// <summary>
         /// 框架版本
         /// </summary>
-        public static readonly string Version = "0.1.0";
+        public static readonly string Version = "0.1.1";
 
         /// <summary>
         /// 初始化GameCore框架
