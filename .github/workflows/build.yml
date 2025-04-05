@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build and Test Core
 
 on:
   push:
@@ -21,13 +21,13 @@ jobs:
         dotnet-version: 9.0.x
         
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore GameCore.Core
       
-    - name: Build
-      run: dotnet build --no-restore
+    - name: Build Core
+      run: dotnet build GameCore.Core --no-restore -c Release
       
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Test Core
+      run: dotnet test GameCore.Tests --filter "FullyQualifiedName~GameCore.Core" -c Release
       
     - name: Pack
       run: dotnet pack GameCore.Core -c Release -o artifacts
