@@ -4,6 +4,8 @@
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>GameCore.Unity</PackageId>
+    <Version>$(UnityVersion)</Version>
   </PropertyGroup>
 
   <ItemGroup>

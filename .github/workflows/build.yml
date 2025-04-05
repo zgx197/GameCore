@@ -23,11 +23,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
       
-    - name: Build Core
-      run: dotnet build GameCore.Core --no-restore -c Release
+    - name: Build
+      run: dotnet build --no-restore
       
-    - name: Test Core
-      run: dotnet test GameCore.Tests --filter "FullyQualifiedName~GameCore.Core" -c Release
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
       
     - name: Pack
       run: dotnet pack GameCore.Core -c Release -o artifacts

@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
+    <Authors>zgx197</Authors>
+    <Description>跨引擎游戏开发核心框架</Description>
+    <RepositoryUrl>https://github.com/zgx197/GameCore</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/zgx197/GameCore</PackageProjectUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <!-- 核心版本 -->
+    <CoreVersion>0.1.0</CoreVersion>
+    <!-- 适配器版本 -->
+    <UnityVersion>0.1.0</UnityVersion>
+    <GodotVersion>0.1.0</GodotVersion>
+  </PropertyGroup>
+</Project>

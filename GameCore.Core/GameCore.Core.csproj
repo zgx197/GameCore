@@ -4,10 +4,8 @@
     <LangVersion>12.0</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>0.1.0</Version>
-    <Authors>YourName</Authors>
-    <Description>跨引擎游戏开发核心框架</Description>
-    <PackageId>GameCore</PackageId>
+    <PackageId>GameCore.Core</PackageId>
+    <Version>$(CoreVersion)</Version>
     <RepositoryUrl>https://github.com/zgx197/GameCore</RepositoryUrl>
   </PropertyGroup>
 

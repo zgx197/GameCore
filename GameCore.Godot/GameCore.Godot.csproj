@@ -4,6 +4,8 @@
     <LangVersion>12.0</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>GameCore.Godot</PackageId>
+    <Version>$(GodotVersion)</Version>
   </PropertyGroup>
 
   <ItemGroup>
