@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>GameCore.Unity</PackageId>
+    <Version>$(UnityVersion)</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameCore.Core\GameCore.Core.csproj" />
+  </ItemGroup>
+
+  <!-- 引用Unity程序集(路径需根据开发环境调整) -->
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>D:\unity\2022.3.16f1c1\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>D:\unity\2022.3.16f1c1\Editor\Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="CopyDllsAfterBuild" AfterTargets="Build">
+    <PropertyGroup>
+      <CoreOutputDir>$(SolutionDir)GameCore.Core\bin\$(Configuration)</CoreOutputDir>
+      <PluginsDir>$(ProjectDir)Runtime\Plugins</PluginsDir>
+    </PropertyGroup>
+    
+    <!-- 确保目标目录存在 -->
+    <MakeDir Directories="$(PluginsDir)" Condition="!Exists('$(PluginsDir)')" />
+    
+    <!-- 复制标准版本 -->
+    <Copy SourceFiles="$(CoreOutputDir)\netstandard2.1\GameCore.Core.dll" 
+          DestinationFolder="$(PluginsDir)" 
+          SkipUnchangedFiles="true" />
+          
+    <Message Text="已将依赖复制到Unity插件目录" Importance="high" />
+  </Target>
+</Project>

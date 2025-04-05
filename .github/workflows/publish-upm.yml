@@ -1,0 +1,75 @@
+name: Publish UPM Package
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'GameCore.Unity/**'
+      - 'Directory.Build.props'
+      - '.github/workflows/publish-upm.yml'
+  repository_dispatch:
+    types: [core-release]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 9.0.x
+      
+      - name: Build Core
+        run: |
+          dotnet build GameCore.Core -c Release
+      
+      - name: Create Plugins directory
+        run: mkdir -p GameCore.Unity/Runtime/Plugins
+
+      - name: Copy Core DLL to Unity Plugins
+        run: |
+          cp GameCore.Core/bin/Release/netstandard2.1/GameCore.Core.dll GameCore.Unity/Runtime/Plugins/
+      
+      - name: Sync version from Directory.Build.props
+        run: |
+          UNITY_VERSION=$(grep -o '<UnityVersion>[^<]*</UnityVersion>' Directory.Build.props | sed 's/<UnityVersion>\(.*\)<\/UnityVersion>/\1/')
+          sed -i "s/\"version\": \"[^\"]*\"/\"version\": \"$UNITY_VERSION\"/" GameCore.Unity/package.json
+          echo "Version synced to: $UNITY_VERSION"
+          
+      - name: Get UPM Package version
+        id: version
+        run: |
+          VERSION=$(grep -o '"version": *"[^"]*"' GameCore.Unity/package.json | cut -d'"' -f4)
+          echo "package_version=$VERSION" >> $GITHUB_OUTPUT
+      
+      - name: Setup Git Identity
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      
+      - name: Remove unnecessary files
+        run: |
+          rm -rf GameCore.Unity/bin
+          rm -rf GameCore.Unity/obj
+          rm -f GameCore.Unity/*.csproj
+          git add -A
+          git commit -m "chore: Remove unnecessary files from UPM package" || echo "No files to remove"
+      
+      - name: Create and Update UPM Branch
+        run: |
+          git branch -D upm || true
+          git subtree split --prefix=GameCore.Unity --branch upm
+          git push -f origin upm
+      
+      - name: Create UPM Tag
+        run: |
+          git tag -d upm/v${{ steps.version.outputs.package_version }} || true
+          git push origin :refs/tags/upm/v${{ steps.version.outputs.package_version }} || true
+          git tag -a upm/v${{ steps.version.outputs.package_version }} -m "UPM package version ${{ steps.version.outputs.package_version }}" upm
+          git push origin upm/v${{ steps.version.outputs.package_version }}

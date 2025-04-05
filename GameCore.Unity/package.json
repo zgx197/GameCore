@@ -1,0 +1,29 @@
+{
+    "name": "com.gamecore.unity",
+    "version": "0.1.0",
+    "displayName": "GameCore Unity Adapter",
+    "description": "Unity适配器，用于GameCore框架的六边形网格系统",
+    "unity": "2022.3.x",
+    "dependencies": {
+      "com.unity.modules.physics": "1.0.0"
+    },
+    "keywords": [
+      "gamecore",
+      "hexgrid",
+      "gamedev"
+    ],
+    "author": {
+      "name": "ZhangGuoxin",
+      "email": "guoxin_zhang@outlook.com",
+      "url": "https://github.com/zgx197"
+    },
+    "samples": [
+      {
+        "displayName": "HexGrid Example",
+        "description": "演示如何使用六边形网格系统",
+        "path": "Samples~/HexGridExample"
+      }
+    ],
+    "documentationUrl": "https://github.com/zgx197/GameCore",
+    "license": "Apache-2.0"
+  }

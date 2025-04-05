@@ -3,10 +3,16 @@ name: Build and Test Core
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'GameCore.Core/**'
+      - 'GameCore.Tests/**'
+      - 'Directory.Build.props'
+      - '.github/workflows/build.yml'
   pull_request:
     branches: [ main ]
   release:
     types: [ published ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -24,7 +30,7 @@ jobs:
       run: dotnet restore GameCore.Core
       
     - name: Build Core
-      run: dotnet build GameCore.Core --no-restore -c Release
+      run: dotnet build GameCore.Core -c Release
       
     - name: Test Core
       run: dotnet test GameCore.Tests --filter "FullyQualifiedName~GameCore.Core" -c Release
@@ -33,7 +39,7 @@ jobs:
       run: dotnet pack GameCore.Core -c Release -o artifacts
       
     - name: Upload artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
         name: nuget-packages
         path: artifacts/*.nupkg
@@ -45,3 +51,12 @@ jobs:
         foreach($file in Get-ChildItem -Path artifacts/*.nupkg) {
           dotnet nuget push $file --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
         }
+
+    # 如果成功发布，触发Unity适配器更新
+    - name: Trigger UPM workflow
+      if: github.event_name == 'release' && success()
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        event-type: core-release
+        client-payload: '{"version": "${{ github.event.release.tag_name }}"}'
