@@ -54,7 +54,6 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           echo "Setting remote URL with authentication token"
           git remote set-url origin "https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
-          git remote -v | grep -v '@' # 安全打印远程URL（不显示令牌）
       
       - name: Remove unnecessary files
         run: |
