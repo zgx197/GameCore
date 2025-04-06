@@ -3,17 +3,31 @@ param (
     [string]$UnityProjectPath
 )
 
-# 同步DLL
+# Sync DLL
 .\sync-unity-dll.ps1
 
-# 确保目标目录存在
+# Ensure target directory exists
 $targetPath = Join-Path $UnityProjectPath "Packages\com.gamecore.unity"
 if (-not (Test-Path $targetPath)) {
     New-Item -Path $targetPath -ItemType Directory -Force | Out-Null
 }
+else {
+    # Clear existing files but preserve meta files
+    Get-ChildItem -Path $targetPath -Exclude "*.meta" | ForEach-Object {
+        if ($_.PSIsContainer) {
+            # For directories, remove all non-meta files inside
+            Get-ChildItem -Path $_.FullName -Recurse -Exclude "*.meta" | Remove-Item -Force -Recurse
+        }
+        else {
+            # For files, remove directly
+            Remove-Item $_.FullName -Force
+        }
+    }
+    Write-Host "Cleared existing package files while preserving .meta files" -ForegroundColor Yellow
+}
 
-# 复制Unity适配器作为本地包
-Write-Host "正在复制Unity适配器到: $targetPath" -ForegroundColor Cyan
+# Copy Unity adapter as a local package
+Write-Host "Copying Unity adapter to: $targetPath" -ForegroundColor Cyan
 Get-ChildItem -Path "GameCore.Unity" -Exclude @("bin", "obj", "*.csproj") |
     ForEach-Object {
         if ($_.PSIsContainer) {
@@ -23,4 +37,4 @@ Get-ChildItem -Path "GameCore.Unity" -Exclude @("bin", "obj", "*.csproj") |
         }
     }
 
-Write-Host "准备完成! 在Unity编辑器中打开 $UnityProjectPath 并检查Package Manager" -ForegroundColor Green
+Write-Host "Preparation complete! Open your Unity project at $UnityProjectPath and check Package Manager" -ForegroundColor Green

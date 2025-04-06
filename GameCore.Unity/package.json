@@ -1,9 +1,9 @@
 {
     "name": "com.gamecore.unity",
     "version": "0.1.0",
-    "displayName": "GameCore Unity Adapter",
+    "displayName": "GameCore.Unity",
     "description": "Unity适配器，用于GameCore框架的六边形网格系统",
-    "unity": "2022.3.x",
+    "unity": "2021.3",
     "dependencies": {
       "com.unity.modules.physics": "1.0.0"
     },
