@@ -52,7 +52,9 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git remote set-url origin "https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git"
+          echo "Setting remote URL with authentication token"
+          git remote set-url origin "https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+          git remote -v | grep -v '@' # 安全打印远程URL（不显示令牌）
       
       - name: Remove unnecessary files
         run: |
@@ -61,16 +63,3 @@ jobs:
           rm -f GameCore.Unity/*.csproj
           git add -A
           git commit -m "chore: Remove unnecessary files from UPM package" || echo "No files to remove"
-      
-      - name: Create and Update UPM Branch
-        run: |
-          git branch -D upm || true
-          git subtree split --prefix=GameCore.Unity --branch upm
-          git push -f origin upm
-      
-      - name: Create UPM Tag
-        run: |
-          git tag -d upm/v${{ steps.version.outputs.package_version }} || true
-          git push origin :refs/tags/upm/v${{ steps.version.outputs.package_version }} || true
-          git tag -a upm/v${{ steps.version.outputs.package_version }} -m "UPM package version ${{ steps.version.outputs.package_version }}" upm
-          git push origin upm/v${{ steps.version.outputs.package_version }}
