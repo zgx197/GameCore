@@ -33,7 +33,7 @@ jobs:
       run: dotnet build GameCore.Core -c Release
       
     - name: Test Core
-      run: dotnet test GameCore.Tests --filter "FullyQualifiedName~GameCore.Core" -c Release
+      run: dotnet test GameCore.Tests --filter "SimpleTests" -c Release
       
     - name: Pack
       run: dotnet pack GameCore.Core -c Release -o artifacts

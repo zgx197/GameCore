@@ -4,6 +4,9 @@ obj/
 artifacts/
 *.dll
 
+# 但允许Unity插件目录中的DLL
+!GameCore.Unity/Runtime/Plugins/*.dll
+
 # IDE文件
 .vs/
 .vscode/
@@ -61,3 +64,7 @@ Desktop.ini
 # 测试覆盖率结果
 coverage/
 TestResults/
+
+# 设计文档 - 本地使用，不上传
+/Docs/Design/
+/Docs/Code

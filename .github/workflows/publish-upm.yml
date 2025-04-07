@@ -25,6 +25,11 @@ jobs:
         with:
           dotnet-version: 9.0.x
       
+      - name: Setup environment variables
+        run: |
+          echo "UNITY_MANAGED_DIR=/tmp/unity" >> $GITHUB_ENV
+          mkdir -p /tmp/unity
+      
       - name: Build Core
         run: |
           dotnet build GameCore.Core -c Release
