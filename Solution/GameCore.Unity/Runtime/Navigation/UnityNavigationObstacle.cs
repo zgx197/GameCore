@@ -63,7 +63,7 @@ namespace GameCore.Unity.Navigation
             // Check for position change
             if (transform.position != _lastPosition)
             {
-                _coreObstacle.Position = Vector3Adapter.ToSystemNumerics(transform.position);
+                _coreObstacle.Position = Vector3Adapter.ToSystem(transform.position);
                 _lastPosition = transform.position;
                 changed = true; // Position changes require re-applying to grid
             }
@@ -79,7 +79,7 @@ namespace GameCore.Unity.Navigation
             // Check for size change (if rectangle)
              if (_obstacleType == ObstacleType.Rectangle && _size != _lastSize)
             {
-                _coreObstacle.Size = Vector3Adapter.ToSystemNumerics(_size);
+                _coreObstacle.Size = Vector3Adapter.ToSystem(_size);
                 _lastSize = _size;
                 changed = true;
             }
@@ -136,7 +136,7 @@ namespace GameCore.Unity.Navigation
             }
 
             Vector3 currentPosition = transform.position;
-            SysVec3 sysPosition = Vector3Adapter.ToSystemNumerics(currentPosition);
+            SysVec3 sysPosition = Vector3Adapter.ToSystem(currentPosition);
 
             if (_obstacleType == ObstacleType.Circle)
             {
@@ -144,7 +144,7 @@ namespace GameCore.Unity.Navigation
             }
             else // Rectangle
             {
-                SysVec3 sysSize = Vector3Adapter.ToSystemNumerics(_size);
+                SysVec3 sysSize = Vector3Adapter.ToSystem(_size);
                 _coreObstacle = new NavigationObstacle(NavigationService.Instance.System, sysPosition, sysSize, _isActive);
             }
             

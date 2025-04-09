@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using GameCore.GameSystems.Navigation.Pathfinding;
-using GameCore.GameSystems.Navigation.Grids;
 
 namespace GameCore.GameSystems.Navigation.Components
 {

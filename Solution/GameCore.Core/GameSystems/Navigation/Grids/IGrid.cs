@@ -11,6 +11,11 @@ namespace GameCore.GameSystems.Navigation.Grids
     public interface IGrid
     {
         /// <summary>
+        /// 网格单元格大小
+        /// </summary>
+        float CellSize { get; }
+
+        /// <summary>
         /// Gets the grid node corresponding to the given world position.
         /// </summary>
         /// <param name="worldPosition">The world position to query.</param>
@@ -82,5 +87,11 @@ namespace GameCore.GameSystems.Navigation.Grids
         /// <param name="mapWidth">The width dimension of the height map.</param>
         /// <param name="mapDepth">The depth dimension of the height map.</param>
         void UpdateGridHeights(float[] heightMap, int mapWidth, int mapDepth);
+
+        /// <summary>
+        /// Gets all nodes in the grid.
+        /// </summary>
+        /// <returns>An enumerable of all grid nodes.</returns>
+        IEnumerable<IGridNode> GetAllNodes();
     }
 } 

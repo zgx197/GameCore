@@ -2,9 +2,9 @@
 using UnityEngine;
 using GameCore.GameSystems.Navigation;
 using GameCore.GameSystems.Navigation.Grids;
-using System;
 using System.Diagnostics;
 using SysVec3 = System.Numerics.Vector3;
+using GameCore.Unity.Adapters;
 
 namespace GameCore.Unity.Navigation
 {
@@ -73,7 +73,7 @@ namespace GameCore.Unity.Navigation
         private void InitializeNavigationSystem()
         {
             // Currently hardcoded to SquareGrid, could be made configurable
-            _grid = new SquareGrid(_gridWidth, _gridDepth, _cellSize, Adapters.Vector3Adapter.ToSystemNumerics(_gridOrigin));
+            _grid = new SquareGrid(_gridWidth, _gridDepth, _cellSize, Vector3Adapter.ToSystem(_gridOrigin));
             _navigationSystem = new NavigationSystem();
             _navigationSystem.Initialize(_grid); 
             UnityEngine.Debug.Log($"NavigationService initialized with {_gridWidth}x{_gridDepth} SquareGrid.");

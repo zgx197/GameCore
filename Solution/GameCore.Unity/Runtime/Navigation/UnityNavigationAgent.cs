@@ -5,6 +5,8 @@ using GameCore.GameSystems.Navigation.Pathfinding; // PathResult, PathfindingOpt
 using GameCore.Unity.Adapters; // Vector3Adapter
 using System.Collections.Generic; // List
 using SysVec3 = System.Numerics.Vector3;
+using GameCore.GameSystems.Navigation.Grids;
+using GameCore.GameSystems.Navigation; // Add this for INavigationAgent
 
 namespace GameCore.Unity.Navigation
 {
@@ -15,7 +17,7 @@ namespace GameCore.Unity.Navigation
     /// </summary>
     [AddComponentMenu("GameCore/Navigation/Navigation Agent")]
     [RequireComponent(typeof(Rigidbody))] // Recommend using Rigidbody for movement
-    public class UnityNavigationAgent : MonoBehaviour
+    public class UnityNavigationAgent : MonoBehaviour, INavigationAgent
     {
         [Header("Movement Settings")]
         [Tooltip("Movement speed in world units per second.")]
@@ -38,14 +40,21 @@ namespace GameCore.Unity.Navigation
         [SerializeField] private Color _pathColor = Color.green;
         [SerializeField] private float _waypointRadius = 0.1f;
 
+        [SerializeField] private float _moveSpeed = 5f;
+        [SerializeField] private UnityGrid _grid;
+        
         private NavigationAgent _coreAgent;
         private Rigidbody _rigidbody;
         private Vector3 _velocity = Vector3.zero; // Added for acceleration-based movement
+        private Vector3 _targetPosition;
+        private bool _isMoving;
+        private PathResult _currentPath;
 
         public NavigationAgent CoreAgent => _coreAgent;
         public bool IsFollowingPath => _coreAgent?.IsFollowingPath ?? false;
         public bool HasReachedDestination => _coreAgent?.HasReachedDestination ?? true;
         public IReadOnlyList<SysVec3> CorePath => _coreAgent?.Path;
+        public IGrid Grid => _grid;
 
         void Awake()
         {
@@ -76,7 +85,7 @@ namespace GameCore.Unity.Navigation
             SyncSettingsToCoreAgent();
 
             // Set initial position
-            _coreAgent.Position = Vector3Adapter.ToSystemNumerics(transform.position);
+            _coreAgent.Position = Vector3Adapter.ToSystem(transform.position);
 
             // Optional: Set up callback for path results
             // _coreAgent.SetPathCompleteCallback(HandlePathResult);
@@ -87,10 +96,10 @@ namespace GameCore.Unity.Navigation
             if (_coreAgent == null) return;
 
             // Sync Unity position TO core agent before its update
-            _coreAgent.Position = Vector3Adapter.ToSystemNumerics(transform.position);
+            _coreAgent.Position = Vector3Adapter.ToSystem(transform.position);
 
             // Update the core agent logic (path following state, replanning)
-            _coreAgent.Update(Time.deltaTime); 
+            _coreAgent.Update(Time.deltaTime);
 
             // No direct movement application here, FixedUpdate handles physics
         }
@@ -151,10 +160,18 @@ namespace GameCore.Unity.Navigation
         /// Requests the agent to move to the specified destination.
         /// </summary>
         /// <param name="destination">World space destination point.</param>
-        public void MoveTo(Vector3 destination)
+        public void MoveTo(SysVec3 destination)
         {
             SyncSettingsToCoreAgent(); // Ensure latest settings are used
-            _coreAgent?.MoveTo(Vector3Adapter.ToSystemNumerics(destination));
+            _coreAgent?.MoveTo(destination);
+        }
+
+        /// <summary>
+        /// Overload for MoveTo using UnityEngine.Vector3 for convenience in Unity Editor.
+        /// </summary>
+        public void MoveTo(Vector3 destination)
+        {
+            MoveTo(Vector3Adapter.ToSystem(destination));
         }
 
         /// <summary>
@@ -173,7 +190,13 @@ namespace GameCore.Unity.Navigation
         /// <param name="unityPath">List of world space waypoints.</param>
         public void SetPath(List<Vector3> unityPath)
         {
-            _coreAgent?.SetPath(Vector3Adapter.ToSystemNumericsList(unityPath.ToArray()));
+            if (unityPath == null) 
+            {
+                _coreAgent?.SetPath(null);
+                return;
+            }
+            var systemPath = Vector3Adapter.ToSystemArray(unityPath.ToArray());
+            _coreAgent?.SetPath(new List<SysVec3>(systemPath));
         }
 
         // Sync inspector settings to core agent

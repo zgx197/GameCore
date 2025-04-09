@@ -5,7 +5,7 @@ artifacts/
 *.dll
 
 # 但允许Unity插件目录中的DLL
-!GameCore.Unity/Runtime/Plugins/*.dll
+!/Solution/GameCore.Unity/Runtime/Plugins/*.dll
 
 # IDE文件
 .vs/
@@ -35,6 +35,9 @@ artifacts/
 *.mdb
 *.opendb
 *.VC.db
+
+# Unity测试项目不提交
+Solution/GameCore.UnityProject
 
 # Godot生成的文件
 .godot/
